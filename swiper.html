@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>mySwiper</title>
+    <style>
+        .images {
+            display: flex;
+            width: 600px;
+            height: 155px;
+            /* border: 5px solid red; */
+            align-items: flex-start;
+            /* line-height:center; */
+            transition: transform 0.3s;
+        }
+
+        .wrapper {
+            width: 200px;
+            /* height: 155px; */
+            /* border: 10px solid green; */
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .manyButtons {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .setColor{
+            color:rgb(175, 214, 0)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="images" id="images">
+            <img src="./img/mywork1.jpg" alt="autumn afternoon" width="200px;" height="155px;">
+            <img src="./img/mywork2.jpg" alt="autumn afternoon" width="200px;" height="155px;">
+            <img src="./img/mywork3.jpg" alt="autumn afternoon" width="200px;" height="155px;">
+            <img src="./img/mywork2.jpg" alt="autumn afternoon" width="200px;" height="155px;">
+        </div>
+    </div>
+    <div class="manyButtons">
+        <button id="button1">第一张</button>
+        <button id="button2">第二张</button>
+        <button id="button3">第三张</button>
+        <button id="button4">第四张</button>
+    </div>
+
+    <script>
+        // $(button1).on('click',function(){
+        //     $(images).css({transform:'translateX(0)'})
+        // })
+        // $(button2).on('click',function(){
+        //     $(images).css({transform:'translateX(-200px)'})
+        // })
+        // $(button3).on('click',function(){
+        //     $(images).css({transform:'translateX(-400px)'})
+        // })
+
+        var Buttons = $('.manyButtons > button') 
+        console.log(Buttons)
+        for(let i = 0 ;i<Buttons.length;i++){
+            $(Buttons[i]).on('click',function(x){
+              var n = $(x.currentTarget).index()
+              $('img').css({
+                  transform: 'translate('+ -200 * n +'px)'
+              })
+            })
+        }
+        // 自动播放
+        n = 0
+        Buttons.eq(n%4).trigger('click') 
+        .addClass('setColor').siblings('.setColor').removeClass('setColor')
+        setInterval(()=>{
+            n++
+            Buttons.eq(n%4).trigger('click') 
+            .addClass('setColor').siblings('.setColor').removeClass('setColor')
+        },1000)
+
+    </script>
+
+</body>
+
+</html>
