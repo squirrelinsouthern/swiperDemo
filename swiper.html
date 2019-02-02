@@ -10,45 +10,57 @@
     <style>
         .images {
             display: flex;
-            width: 600px;
-            height: 155px;
+            width: 1200px;
+            height: 310px;
             /* border: 5px solid red; */
             align-items: flex-start;
             /* line-height:center; */
-            transition: transform 0.3s;
+            transition: transform 0.5s;
         }
 
         .wrapper {
-            width: 200px;
-            /* height: 155px; */
+            width: 400px;
+            /* height: 310px; */
             /* border: 10px solid green; */
             overflow: hidden;
             margin: 0 auto;
         }
+
         .manyButtons {
             margin-top: 10px;
             text-align: center;
         }
-        .setColor{
-            color:rgb(175, 214, 0)
+        .manyButtons>button{
+            /* font-size: 30px; */
+            height: 30px;
+        }
+
+        .setColor {
+            color:chocolate;
+        }
+        p{
+            font-size: 50px;
+            font-style: italic;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
+    <p>My Gallary</p>
     <div class="wrapper">
         <div class="images" id="images">
-            <img src="./img/mywork1.jpg" alt="autumn afternoon" width="200px;" height="155px;">
-            <img src="./img/mywork2.jpg" alt="autumn afternoon" width="200px;" height="155px;">
-            <img src="./img/mywork3.jpg" alt="autumn afternoon" width="200px;" height="155px;">
-            <img src="./img/mywork2.jpg" alt="autumn afternoon" width="200px;" height="155px;">
+            <img src="./img/mywork1.jpg" alt="autumn afternoon" width="400px;" height="310px;">
+            <img src="./img/mywork2.jpg" alt="autumn afternoon" width="400px;" height="310px;">
+            <img src="./img/mywork3.jpg" alt="autumn afternoon" width="400px;" height="310px;">
+            <img src="./img/mywork2.jpg" alt="autumn afternoon" width="400px;" height="310px;">
         </div>
     </div>
     <div class="manyButtons">
-        <button id="button1">第一张</button>
-        <button id="button2">第二张</button>
-        <button id="button3">第三张</button>
-        <button id="button4">第四张</button>
+        <button id="button1">Autumn</button>
+        <button id="button2">Afternoon</button>
+        <button id="button3">Bohee</button>
+        <button id="button4">Sunshine</button>
     </div>
 
     <script>
@@ -62,25 +74,43 @@
         //     $(images).css({transform:'translateX(-400px)'})
         // })
 
-        var Buttons = $('.manyButtons > button') 
-        console.log(Buttons)
-        for(let i = 0 ;i<Buttons.length;i++){
-            $(Buttons[i]).on('click',function(x){
-              var n = $(x.currentTarget).index()
-              $('img').css({
-                  transform: 'translate('+ -200 * n +'px)'
-              })
+        var Buttons = $('.manyButtons > button')
+        // console.log(Buttons)
+        for (let i = 0; i < Buttons.length; i++) {
+            $(Buttons[i]).on('click', function (x) {
+                var n = $(x.currentTarget).index()
+                $('img').css({
+                    transform: 'translate(' + -400 * n + 'px)'
+                })
             })
         }
         // 自动播放
-        n = 0
-        Buttons.eq(n%4).trigger('click') 
-        .addClass('setColor').siblings('.setColor').removeClass('setColor')
-        setInterval(()=>{
-            n++
-            Buttons.eq(n%4).trigger('click') 
+        var n = 0
+        Buttons.eq(n % 4).trigger('click')
             .addClass('setColor').siblings('.setColor').removeClass('setColor')
-        },1000)
+
+        var timeId = setInterval(() => {
+            n++
+            Buttons.eq(n % 4).trigger('click')
+                .addClass('setColor').siblings('.setColor').removeClass('setColor')
+        }, 3000)
+       
+
+        // 暂停功能
+        $('.wrapper').on('mouseenter', function () {
+            window.clearInterval(timeId)
+        })
+        $('.wrapper').on('mouseleave', function () {
+            timeId = setInterval(() => {
+                n++
+                Buttons.eq(n % 4).trigger('click')
+                    .addClass('setColor').siblings('.setColor').removeClass('setColor')
+            }, 1000)
+        })
+
+
+
+
 
     </script>
 
