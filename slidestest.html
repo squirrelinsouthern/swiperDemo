@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Slides</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .wrapper {
+            width: 400px;
+            height: 200px;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+        .images{
+            position: relative;
+            
+        }
+
+        .images > img {
+            position: absolute;
+            transition: all 0.7s;
+            top:0;
+            left:0;
+        }
+
+        .images > .current {
+            transform: translateX(0);
+            z-index: 1;
+            /* opacity: 1; */
+        }
+        .images > .leave {
+            transform: translateX(-100%);
+            z-index: 1;
+            /* opacity: 0; */
+        }
+        .images > .wait {
+            transform: translateX(100%);
+            
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="images">
+            <img src="./img/pic-01.jpg" alt="pic-01" height="200" width="400">
+            <img src="./img/pic-02.jpg" alt="pic-02" height="200" width="400">
+            <img src="./img/pic-03.jpg" alt="pic-03" height="200" width="400">
+            <img src="./img/pic-04.jpg" alt="pic-04" height="200" width="400">
+        </div>
+    </div>
+
+    <script>
+        $('.images > img:nth-child(1)').addClass('current')   // .images  -child  '.current'
+        $('.images > img:nth-child(2)').addClass('wait') 
+        $('.images > img:nth-child(3)').addClass('wait') 
+        $('.images > img:nth-child(4)').addClass('wait') 
+        let n = 1
+        setInterval(function(){
+            $(`.images > img:nth-child(${x(n)})`).removeClass('current').addClass('leave')
+                .one('transitionend', (a)=>{$(a.currentTarget).removeClass('leave').addClass('wait')})
+            $(`.images > img:nth-child(${x(n+1)})`).removeClass('wait').addClass('current')
+            n += 1
+        } , 3000*n)
+   
+        function x(n){
+            if(n>4){
+                n = n%4
+                if(n===0){
+                    n=4
+                }
+            }
+            return n
+        }
+    
+
+    </script>
+</body>
+
+</html>
